@@ -10,6 +10,7 @@ pip install sumoq
 
 ### Config file
 ===============
+
 To run this utiliity, a config file(~/.sumo) is required to be created, here is an exmaple:
 ```
 [default]
