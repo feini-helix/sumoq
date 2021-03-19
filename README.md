@@ -23,7 +23,7 @@ timezone = PST
 
 ```
 [fei.ni@fei-ni-C02D72XMMD6N-SM  dist (main *%)]$ sumoq -h
-Usage: [-] Usage echo 'query_string' | sumoq [options]
+Usage: [-]echo 'query_string' | sumoq [options]
 
 Options:
   --version             show program's version number and exit
