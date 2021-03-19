@@ -50,9 +50,8 @@ setup(
     classifiers = proj_info['classifiers'],
 
     entry_points = {'console_scripts': proj_info['console_scripts']},
-
-    extras_require={
-        'sumologic-sdk': ['sumologic-sdk'],
-    }
+    install_requires =[
+        "sumologic-sdk>=0.1.11"
+        ]
 )
 

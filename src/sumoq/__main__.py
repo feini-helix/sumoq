@@ -109,7 +109,7 @@ def main():
         print("--end_time is required")
         parser.print_help()
         sys.exit(-1)
-    accessId, accessKey, timnezone = getCfg()
+    accessId, accessKey, timezone = getCfg()
     sumo = sumologic.SumoLogic(accessId, accessKey, sumoUrl)
 
     query(sumo, q, startTime, endTime, timezone, int(options.limit))
