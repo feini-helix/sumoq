@@ -10,7 +10,6 @@ import sumologic
 # logging.basicConfig(level=logging.DEBUG)
 
 sumoUrl = "https://api.us2.sumologic.com/api"
-timeZone = "PST"
 byReceiptTime = False
 
 
@@ -20,7 +19,7 @@ def getCfg():
     import configparser
 
     home = str(Path.home())
-    cfgPath = "{}/.sumo/credentials".format(home)
+    cfgPath = "{}/.sumo".format(home)
     config = configparser.ConfigParser()
     if not path.isfile(cfgPath):
         print("Error: cannot find sumo config file %s".format(cfgPath))
@@ -29,6 +28,7 @@ def getCfg():
     return (
         config["default"]["sumo_access_key_id"],
         config["default"]["sumo_secret_access_key"],
+        config["default"]["timezone"]
     )
 
 
@@ -58,7 +58,7 @@ def query(sumo, q, fromTimeStr, toTimeStr, timeZone, limit):
 
 def main():
     parser = optparse.OptionParser(
-        "[-] Usage %prog [options] [query_file]", version="%prog 1.0"
+        "[-] Usage echo 'query_string' | %prog [options]", version="%prog 0.1.0"
     )
     parser.add_option(
         "-r",
@@ -66,21 +66,21 @@ def main():
         action="store",
         dest="recent_hours",
         default="6",
-        help="time range to query till now, default is 6 which means recent 6 hours",
+        help="time range to query till now, default is 6 which means recent 6 hours (optional)",
     )
     parser.add_option(
         "-s",
         "--start_time",
         action="store",
         dest="start_time",
-        help="start time to query, format is YYYY-MM-DDTH:M:S, such as 2021-01-01T00:00:00",
+        help="start time to query, format is YYYY-MM-DDTH:M:S, such as 2021-01-01T00:00:00 (optional)",
     )
     parser.add_option(
         "-e",
         "--end_time",
         action="store",
         dest="end_time",
-        help="end time to query, format is YYYY-MM-DDTH:M:S, such as 2021-01-01T00:00:00",
+        help="end time to query, format is YYYY-MM-DDTH:M:S, such as 2021-01-01T00:00:00 (optional)",
     )
     parser.add_option(
         "-l",
@@ -88,7 +88,7 @@ def main():
         action="store",
         default="10000",
         dest="limit",
-        help="limited items' number to return",
+        help="limited items' number to return (optional)",
     )
 
     (options, args) = parser.parse_args()
@@ -109,10 +109,10 @@ def main():
         print("--end_time is required")
         parser.print_help()
         sys.exit(-1)
-    accessId, accessKey = getCfg()
+    accessId, accessKey, timnezone = getCfg()
     sumo = sumologic.SumoLogic(accessId, accessKey, sumoUrl)
 
-    query(sumo, q, startTime, endTime, timeZone, int(options.limit))
+    query(sumo, q, startTime, endTime, timezone, int(options.limit))
 
 
 if __name__ == "__main__":
