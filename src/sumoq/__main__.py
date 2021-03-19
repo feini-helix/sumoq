@@ -58,7 +58,7 @@ def query(sumo, q, fromTimeStr, toTimeStr, timeZone, limit):
 
 def main():
     parser = optparse.OptionParser(
-        "[-] Usage echo 'query_string' | %prog [options]", version="%prog 0.1.0"
+        "[-]echo 'query_string' | %prog [options]", version="%prog 0.1.0"
     )
     parser.add_option(
         "-r",
