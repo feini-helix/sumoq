@@ -5,7 +5,7 @@ sumoq is a tiny command-line utility to query sumologic.
 ### Installing
 ===============
 ```
-pip install sumoq
+pip3 install sumoq
 ```
 
 ### Config file
